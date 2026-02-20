@@ -59,16 +59,7 @@ class HotelApp:
         page.spacing = 0
         
         # Tema personalizado
-        page.theme = ft.Theme(
-            color_scheme=ft.ColorScheme(
-                primary=ft.Colors.BLUE,
-                primary_container=ft.Colors.BLUE_100,
-                secondary=ft.Colors.ORANGE,
-                surface=ft.Colors.WHITE,
-                background=ft.Colors.GREY_50,
-                error=ft.Colors.RED,
-            )
-        )
+        page.theme = ft.Theme(color_scheme_seed=ft.Colors.BLUE)
         
         # Verificar autenticación inicial
         self._check_auth()

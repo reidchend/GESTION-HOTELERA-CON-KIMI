@@ -77,7 +77,7 @@ class LoginView(ft.View):
         self.controls = [
             ft.Container(
                 content=login_card,
-                alignment=ft.alignment.center
+                alignment=ft.Alignment(0, 0)
             )
         ]
     
