@@ -21,20 +21,20 @@ class HuespedesView(ft.View):
         self.appbar = ft.AppBar(
             title=ft.Text("Gestión de Huéspedes"),
             bgcolor=ft.Colors.BLUE,
-            leading=ft.IconButton(icon=ft.icons.ARROW_BACK, on_click=lambda e: self.on_back())
+            leading=ft.IconButton(icon=ft.Icons.ARROW_BACK, on_click=lambda e: self.on_back())
         )
         
         # Barra de búsqueda
         self.txt_buscar = ft.TextField(
             label="Buscar por nombre o documento",
-            prefix_icon=ft.icons.SEARCH,
+            prefix_icon=ft.Icons.SEARCH,
             expand=True,
             on_change=self._buscar
         )
         
         btn_nuevo = ft.ElevatedButton(
             "Nuevo Huésped",
-            icon=ft.icons.PERSON_ADD,
+            icon=ft.Icons.PERSON_ADD,
             on_click=self._mostrar_form_nuevo
         )
         
@@ -93,12 +93,12 @@ class HuespedesView(ft.View):
             
             acciones = ft.Row([
                 ft.IconButton(
-                    icon=ft.icons.EDIT,
+                    icon=ft.Icons.EDIT,
                     tooltip="Editar",
                     on_click=lambda e, id=h.id: self._editar_huesped(id)
                 ),
                 ft.IconButton(
-                    icon=ft.icons.HISTORY,
+                    icon=ft.Icons.HISTORY,
                     tooltip="Historial",
                     on_click=lambda e, id=h.id: self._ver_historial(id)
                 )
@@ -106,7 +106,7 @@ class HuespedesView(ft.View):
             
             if self.on_select:
                 acciones.controls.insert(0, ft.IconButton(
-                    icon=ft.icons.CHECK_CIRCLE,
+                    icon=ft.Icons.CHECK_CIRCLE,
                     tooltip="Seleccionar",
                     icon_color=ft.Colors.GREEN,
                     on_click=lambda e, id=h.id: self.on_select(Huesped.buscar_por_id(id))

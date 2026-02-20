@@ -26,7 +26,7 @@ class RoomCard(ft.Card):
             if registro:
                 info_adicional = registro.huesped_nombre
                 if registro.saldo_actual_usd > 0:
-                    info_adicional += f"\n⚠️ Debe: ${registro.saldo_actual_usd:.2f}"
+                    info_adicional += f"\n Debe: ${registro.saldo_actual_usd:.2f}"
         
         # Color de fondo según estado
         bg_color = self.habitacion.color_estado
@@ -79,7 +79,6 @@ class RoomCard(ft.Card):
             bgcolor=bg_color,
             border_radius=8,
             on_click=self._on_click,
-            animate=ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT),
         )
     
     def _on_click(self, e):

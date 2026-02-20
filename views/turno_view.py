@@ -24,7 +24,7 @@ class TurnoView(ft.View):
         self.appbar = ft.AppBar(
             title=ft.Text("Gestión de Turno"),
             bgcolor=ft.Colors.BLUE,
-            leading=ft.IconButton(icon=ft.icons.ARROW_BACK, on_click=lambda e: self.on_complete())
+            leading=ft.IconButton(icon=ft.Icons.ARROW_BACK, on_click=lambda e: self.on_complete())
         )
         
         # Verificar si hay turno abierto
@@ -64,7 +64,7 @@ class TurnoView(ft.View):
         
         btn_abrir = ft.ElevatedButton(
             "Abrir Turno",
-            icon=ft.icons.LOCK_OPEN,
+            icon=ft.Icons.LOCK_OPEN,
             bgcolor=ft.Colors.GREEN,
             color=ft.Colors.WHITE,
             on_click=self._abrir_turno
@@ -153,7 +153,7 @@ class TurnoView(ft.View):
         
         btn_cerrar = ft.ElevatedButton(
             "Cerrar Turno",
-            icon=ft.icons.LOCK,
+            icon=ft.Icons.LOCK,
             bgcolor=ft.Colors.RED,
             color=ft.Colors.WHITE,
             on_click=self._cerrar_turno

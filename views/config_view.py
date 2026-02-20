@@ -21,7 +21,7 @@ class ConfigView(ft.View):
         self.appbar = ft.AppBar(
             title=ft.Text("Configuración del Sistema"),
             bgcolor=ft.Colors.BLUE,
-            leading=ft.IconButton(icon=ft.icons.ARROW_BACK, on_click=lambda e: self.on_back())
+            leading=ft.IconButton(icon=ft.Icons.ARROW_BACK, on_click=lambda e: self.on_back())
         )
         
         # Tabs
@@ -31,17 +31,17 @@ class ConfigView(ft.View):
             tabs=[
                 ft.Tab(
                     text="General",
-                    icon=ft.icons.SETTINGS,
+                    icon=ft.Icons.SETTINGS,
                     content=self._build_tab_general()
                 ),
                 ft.Tab(
                     text="Usuarios",
-                    icon=ft.icons.PEOPLE,
+                    icon=ft.Icons.PEOPLE,
                     content=self._build_tab_usuarios()
                 ),
                 ft.Tab(
                     text="Habitaciones",
-                    icon=ft.icons.HOTEL,
+                    icon=ft.Icons.HOTEL,
                     content=self._build_tab_habitaciones()
                 ),
             ],
@@ -95,7 +95,7 @@ class ConfigView(ft.View):
         
         btn_guardar = ft.ElevatedButton(
             "Guardar Configuración",
-            icon=ft.icons.SAVE,
+            icon=ft.Icons.SAVE,
             on_click=self._guardar_config
         )
         
@@ -131,7 +131,7 @@ class ConfigView(ft.View):
         
         btn_nuevo = ft.ElevatedButton(
             "Nuevo Usuario",
-            icon=ft.icons.PERSON_ADD,
+            icon=ft.Icons.PERSON_ADD,
             on_click=self._mostrar_form_usuario
         )
         
@@ -175,7 +175,7 @@ class ConfigView(ft.View):
                     ft.DataCell(ft.Text(f"${h.precio_usd:.2f}")),
                     ft.DataCell(ft.Text(str(h.capacidad))),
                     ft.DataCell(ft.IconButton(
-                        icon=ft.icons.EDIT,
+                        icon=ft.Icons.EDIT,
                         tooltip="Editar",
                         on_click=lambda e, hab=h: self._editar_habitacion(hab)
                     ))
@@ -210,12 +210,12 @@ class ConfigView(ft.View):
                     ),
                     ft.DataCell(ft.Row([
                         ft.IconButton(
-                            icon=ft.icons.EDIT,
+                            icon=ft.Icons.EDIT,
                             tooltip="Editar",
                             on_click=lambda e, id=u.id: self._editar_usuario(id)
                         ),
                         ft.IconButton(
-                            icon=ft.icons.LOCK_RESET,
+                            icon=ft.Icons.LOCK_RESET,
                             tooltip="Cambiar Contraseña",
                             on_click=lambda e, id=u.id: self._cambiar_password(id)
                         )

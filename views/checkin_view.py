@@ -31,26 +31,26 @@ class CheckinView(ft.View):
         self.appbar = ft.AppBar(
             title=ft.Text("Check-in de Huésped"),
             bgcolor=ft.Colors.BLUE,
-            leading=ft.IconButton(icon=ft.icons.ARROW_BACK, on_click=lambda e: self.on_cancel())
+            leading=ft.IconButton(icon=ft.Icons.ARROW_BACK, on_click=lambda e: self.on_cancel())
         )
         
         # === SECCIÓN 1: Búsqueda de Huésped ===
         self.txt_buscar_documento = ft.TextField(
             label="Documento (Cédula/Pasaporte)",
-            prefix_icon=ft.icons.SEARCH,
+            prefix_icon=ft.Icons.SEARCH,
             width=250,
             on_submit=self._buscar_huesped
         )
         
         btn_buscar = ft.ElevatedButton(
             "Buscar",
-            icon=ft.icons.SEARCH,
+            icon=ft.Icons.SEARCH,
             on_click=self._buscar_huesped
         )
         
         btn_nuevo = ft.ElevatedButton(
             "Nuevo Huésped",
-            icon=ft.icons.PERSON_ADD,
+            icon=ft.Icons.PERSON_ADD,
             on_click=self._mostrar_form_nuevo_huesped
         )
         
@@ -102,7 +102,7 @@ class CheckinView(ft.View):
         # === BOTONES ===
         btn_guardar = ft.ElevatedButton(
             "Completar Check-in",
-            icon=ft.icons.CHECK_CIRCLE,
+            icon=ft.Icons.CHECK_CIRCLE,
             bgcolor=ft.Colors.GREEN,
             color=ft.Colors.WHITE,
             on_click=self._guardar_checkin
@@ -110,7 +110,7 @@ class CheckinView(ft.View):
         
         btn_cancelar = ft.OutlinedButton(
             "Cancelar",
-            icon=ft.icons.CANCEL,
+            icon=ft.Icons.CANCEL,
             on_click=lambda e: self.on_cancel()
         )
         

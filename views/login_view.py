@@ -24,14 +24,14 @@ class LoginView(ft.View):
         # Campos de entrada
         self.txt_username = ft.TextField(
             label="Usuario",
-            prefix_icon=ft.Icons.PERSON, 
+            prefix_icon=ft.Icons.PERSON,
             width=300,
             on_submit=self._on_login
         )
         
         self.txt_password = ft.TextField(
             label="Contraseña",
-            prefix_icon=ft.Icons.LOCK, 
+            prefix_icon=ft.Icons.LOCK,
             password=True,
             can_reveal_password=True,
             width=300,
@@ -77,9 +77,7 @@ class LoginView(ft.View):
         self.controls = [
             ft.Container(
                 content=login_card,
-                # CAMBIO CLAVE AQUÍ: Usamos la clase Alignment con coordenadas
-                # (0,0) representa el centro exacto en Flet/Flutter
-                alignment=ft.Alignment(0, 0) 
+                alignment=ft.alignment.center
             )
         ]
     

@@ -21,7 +21,6 @@ class DashboardView(ft.View):
         self._build()
     
     def _build(self):
-        # Configuración del AppBar
         self.appbar = ft.AppBar(
             title=ft.Text("Dashboard - Habitaciones"),
             center_title=True,
@@ -34,14 +33,13 @@ class DashboardView(ft.View):
                 ),
                 ft.PopupMenuButton(
                     items=[
-                        # CORRECCIÓN: 'text' cambia a 'content=ft.Text(...)'
-                        ft.PopupMenuItem(content=ft.Text("Check-in"), on_click=lambda e: self.on_menu_click("checkin")),
-                        ft.PopupMenuItem(content=ft.Text("Huéspedes"), on_click=lambda e: self.on_menu_click("huespedes")),
-                        ft.PopupMenuItem(), # Divisor
-                        ft.PopupMenuItem(content=ft.Text("Turno"), on_click=lambda e: self.on_menu_click("turno")),
-                        ft.PopupMenuItem(content=ft.Text("Configuración"), on_click=lambda e: self.on_menu_click("config")),
-                        ft.PopupMenuItem(), # Divisor
-                        ft.PopupMenuItem(content=ft.Text("Cerrar Sesión"), on_click=lambda e: self.on_menu_click("logout")),
+                        ft.PopupMenuItem(text="Check-in", on_click=lambda e: self.on_menu_click("checkin")),
+                        ft.PopupMenuItem(text="Huéspedes", on_click=lambda e: self.on_menu_click("huespedes")),
+                        ft.PopupMenuItem(),
+                        ft.PopupMenuItem(text="Turno", on_click=lambda e: self.on_menu_click("turno")),
+                        ft.PopupMenuItem(text="Configuración", on_click=lambda e: self.on_menu_click("config")),
+                        ft.PopupMenuItem(),
+                        ft.PopupMenuItem(text="Cerrar Sesión", on_click=lambda e: self.on_menu_click("logout")),
                     ]
                 )
             ]
@@ -76,29 +74,30 @@ class DashboardView(ft.View):
             padding=10
         )
         
+        # Contador de habitaciones
         self.lbl_contadores = ft.Text("", size=12, color=ft.Colors.GREY)
         
-        # CORRECCIÓN: El Dropdown puede dar error con on_change en el constructor en algunas compilaciones 0.80.x
+        # Controles de filtro
         self.filtro_estado = ft.Dropdown(
             label="Filtrar por estado",
             width=150,
             options=[
-                ft.dropdown.Option("Todos"),
-                ft.dropdown.Option("Libre"),
-                ft.dropdown.Option("Ocupada"),
-                ft.dropdown.Option("Reservada"),
-                ft.dropdown.Option("Aseo"),
-                ft.dropdown.Option("Mantenimiento"),
+                ft.dropdown.Option("Todos", "Todos"),
+                ft.dropdown.Option("Libre", "Libre"),
+                ft.dropdown.Option("Ocupada", "Ocupada"),
+                ft.dropdown.Option("Reservada", "Reservada"),
+                ft.dropdown.Option("Aseo", "Aseo"),
+                ft.dropdown.Option("Mantenimiento", "Mantenimiento"),
             ],
-            value="Todos"
+            value="Todos",
+            on_change=self._filtrar_habitaciones
         )
-        # Asignamos el evento por fuera para asegurar compatibilidad
-        self.filtro_estado.on_change = self._filtrar_habitaciones
         
         # Layout principal
         self.controls = [
             ft.Container(
                 content=ft.Column([
+                    # Barra superior
                     ft.Row([
                         self.lbl_usuario,
                         ft.VerticalDivider(width=1),
@@ -107,17 +106,20 @@ class DashboardView(ft.View):
                         self.lbl_turno,
                     ], spacing=10),
                     ft.Divider(),
+                    # Filtros y leyenda
                     ft.Row([
                         self.filtro_estado,
                         ft.Container(content=leyenda, expand=True),
                     ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
+                    # Grid
                     ft.Container(
                         content=self.grid_habitaciones,
                         expand=True,
-                        border=ft.Border.all(1, ft.Colors.GREY_300),
+                        border=ft.border.all(1, ft.Colors.GREY_300),
                         border_radius=8,
                         padding=10
                     ),
+                    # Contadores
                     self.lbl_contadores
                 ]),
                 padding=10,
@@ -125,6 +127,7 @@ class DashboardView(ft.View):
             )
         ]
         
+        # Cargar habitaciones
         self._cargar_habitaciones()
     
     def _cargar_habitaciones(self):
@@ -147,29 +150,38 @@ class DashboardView(ft.View):
             self.grid_habitaciones.controls.append(card)
             self.room_cards[hab.numero] = card
         
+        # Actualizar contadores
         total = len(habitaciones)
         ocupadas = contadores[EstadoHabitacion.OCUPADA.value]
         libres = contadores[EstadoHabitacion.LIBRE.value]
-        self.lbl_contadores.value = f"Total: {total} | Ocupadas: {ocupadas} | Libres: {libres}"
+        self.lbl_contadores.value = f"Total: {total} | Ocupadas: {ocupadas} | Libres: {libres} | Reservadas: {contadores[EstadoHabitacion.RESERVADA.value]} | Aseo: {contadores[EstadoHabitacion.ASEO.value]} | Mantenimiento: {contadores[EstadoHabitacion.MANTENIMIENTO.value]}"
         
         self.update()
     
     def _filtrar_habitaciones(self, e):
+        """Filtra las habitaciones por estado"""
         self._cargar_habitaciones()
     
     def _refresh(self, e):
+        """Refresca el dashboard"""
+        # Actualizar tasa
         config = get_config()
         self.lbl_tasa.value = f"Tasa: ${config.tasa_dolar_bs:.2f} Bs/USD"
+        
+        # Actualizar turno
         self.lbl_turno.value = "Turno: Abierto" if session.tiene_turno_abierto else "Turno: Cerrado"
         self.lbl_turno.color = ft.Colors.GREEN if session.tiene_turno_abierto else ft.Colors.RED
+        
         self._cargar_habitaciones()
-
+    
     def actualizar_habitacion(self, numero: int):
+        """Actualiza una habitación específica"""
         habitacion = Habitacion.buscar_por_numero(numero)
         if habitacion and numero in self.room_cards:
             self.room_cards[numero].update_habitacion(habitacion)
         else:
             self._cargar_habitaciones()
-
+    
     def refresh_all(self):
+        """Refresca toda la vista"""
         self._refresh(None)

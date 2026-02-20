@@ -41,7 +41,7 @@ class PaymentForm(ft.Column):
         # Botón agregar pago
         btn_agregar = ft.ElevatedButton(
             "Agregar Pago",
-            icon=ft.icons.ADD,
+            icon=ft.Icons.ADD,
             on_click=self._agregar_linea
         )
         
@@ -119,7 +119,7 @@ class PaymentForm(ft.Column):
         
         # Botón eliminar
         btn_eliminar = ft.IconButton(
-            icon=ft.icons.DELETE,
+            icon=ft.Icons.DELETE,
             icon_color=ft.Colors.RED,
             on_click=lambda e, row=len(self.lineas_container.controls): self._eliminar_linea(e, row)
         )

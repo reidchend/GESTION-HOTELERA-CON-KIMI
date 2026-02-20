@@ -30,7 +30,7 @@ class CheckoutView(ft.View):
         self.appbar = ft.AppBar(
             title=ft.Text("Check-out de Huésped"),
             bgcolor=ft.Colors.RED,
-            leading=ft.IconButton(icon=ft.icons.ARROW_BACK, on_click=lambda e: self.on_cancel())
+            leading=ft.IconButton(icon=ft.Icons.ARROW_BACK, on_click=lambda e: self.on_cancel())
         )
         
         # Cargar datos del registro
@@ -101,7 +101,7 @@ class CheckoutView(ft.View):
         # === BOTONES ===
         btn_completar = ft.ElevatedButton(
             "Completar Check-out",
-            icon=ft.icons.EXIT_TO_APP,
+            icon=ft.Icons.EXIT_TO_APP,
             bgcolor=ft.Colors.RED,
             color=ft.Colors.WHITE,
             on_click=self._confirmar_checkout
@@ -109,7 +109,7 @@ class CheckoutView(ft.View):
         
         btn_cancelar = ft.OutlinedButton(
             "Cancelar",
-            icon=ft.icons.CANCEL,
+            icon=ft.Icons.CANCEL,
             on_click=lambda e: self.on_cancel()
         )
         
