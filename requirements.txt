@@ -1,0 +1,3 @@
+flet==0.80.5
+sqlite-utils
+datetime
